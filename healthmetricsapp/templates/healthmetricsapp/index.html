@@ -1,0 +1,57 @@
+
+{% extends 'healthmetricsapp/base.html' %}
+
+{% block content %}
+  <div align="left" class="btn_create mb-3">
+  <a href="{% url 'healthmetricsapp:create' %}" type="button" class="btn btn-primary">Create User</a>
+  </div>
+  <table class="table table-striped table-hover">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Last Name</th>
+        <th>Age</th>
+        <th>Heart Rate</th>
+        <th>Blood Oxygen Saturation</th>
+        <th>Stress level</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+    {% if users_list %}
+      {% for user in users_list %}
+        <tr>
+          <td>{{ user.name }}</td>
+          <td>{{ user.lastname }}</td>
+          <td>{{ user.age }}</td>
+          <td>{{ user.weight }}</td>
+          <td>{{ user.heartRate }}</td>
+          <td>{{ user.SpO2 }}</td>
+          <td>{{ user.stresslevel }}</td>
+          <td>
+            <form method="POST" action="delete/{{user.id}}">
+              {% csrf_token %}
+              <div class="btn-group">
+                <a href="{% url 'healthmetricsapp:edit' user.id %}" title="Editar" type="button" class="btn btn-primary">Edit</a>
+                <button class="btn btn-danger" type="submit">
+                  Delete
+                </button>
+              </div>
+            </form>
+          </td>
+        </tr>
+      {% endfor %}
+    {% else %}
+      <div class="alert alert-warning" role="alert">
+        No user available.
+      </div>
+    {% endif %}
+      </tbody>
+    </table>
+
+    <div class="modal fade" tabindex="-1" role="dialog" id="modal">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content"></div>
+    </div>
+    </div>
+{% endblock %}

@@ -1,0 +1,32 @@
+{% extends 'healthmetricsapp/base.html' %}
+
+{% load crispy_forms_tags %}
+
+{% block content %}
+<div class="row">
+  <div class="div.col-12.col-md-6.offset-md-3">
+    <div class="card">
+      <div class="card-body">
+        <h1 class="mt-2">Edit User</h1>
+        <hr>
+        <form method="post">
+          {% csrf_token %}
+          {{ form|crispy }}
+          <br>
+          <hr>
+
+          <div class="d-flex justify-content-end">
+            <button type="submit" class="btn btn-primary">Save</button>
+            &nbsp;
+            <a href="{% url 'healthmetricsapp:index' %}" class="btn btn-danger active" role="button"
+              aria-pressed="true">Cancel</a>
+          </div>
+
+        </form>
+      </div>
+    </div>
+
+
+  </div>
+
+  {% endblock %}
